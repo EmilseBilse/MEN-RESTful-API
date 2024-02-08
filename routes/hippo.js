@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const hippo = require("../models/hippo");
+const { verifyToken } = require("../validation");
 
 
 //  /api/hippos
 
 // Post
-router.post("/", (req, res) => {
+router.post("/", verifyToken, (req, res) => {
     data = req.body;
 
     hippo.insertMany(data).then(data => {
@@ -43,7 +44,7 @@ router.get("/:id", (req, res) => {
 });
 
 // put
-router.put("/:id", (req, res) => {
+router.put("/:id", verifyToken, (req, res) => {
 
     const id = req.params.id;
 
@@ -59,7 +60,7 @@ router.put("/:id", (req, res) => {
 });
 
 // delete
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verifyToken, (req, res) => {
     const id = req.params.id;
     hippo.findByIdAndDelete(id).then(data => {
         if (!data) {
