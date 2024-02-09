@@ -8,7 +8,8 @@ let hippoSchema = new Schema(
         weightKg: {type: Number},
         color: {type: String},
         habitat: {type: String},
-        maxSpeedKmHr: {type: Number}
+        maxSpeedKmHr: {type: Number},
+        birthDate: {type: Date}
     }
 );
 
