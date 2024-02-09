@@ -50,6 +50,7 @@ router.get("/:id", (req, res) => {
 // put
 router.put("/:id", verifyToken, (req, res) => {
 
+    // insert the id of the user that last edited the hippo
     const id = req.params.id;
     const updatedHippo = req.body;
     updatedHippo.lastUpdatedBy = req.user.id;

@@ -2,11 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const app = express();
+const cors = require('cors');
 
 const swaggerUi = require("swagger-ui-express");
 const yaml = require("yamljs");
-
-const cors = require('cors');
 
 const swaggerDefinition = yaml.load("./swagger.yaml");
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
@@ -19,6 +18,7 @@ require("dotenv-flow").config();
 
 app.use(bodyParser.json());
 
+// Cors for local frontend development
 app.use(cors({
   origin: 'http://localhost:5173'
 }));
@@ -29,12 +29,6 @@ mongoose.connect(
 ).catch(error => console.log("Error connecting to MongoDB: " + error));
 
 mongoose.connection.once('open', () => console.log("connected successfully to MongoDB"))
-
-
-//routes
-app.get("/api/welcome", (req, res) => {
-    res.status(200).send({message: "Welcome hahahehhehe"});
-});
 
 app.use("/api/hippos", hippoRoutes);
 app.use("/api/user", authRoutes);
