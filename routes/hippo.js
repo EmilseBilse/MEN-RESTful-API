@@ -1,18 +1,22 @@
 const router = require("express").Router();
 const hippo = require("../models/hippo");
 const { verifyToken } = require("../validation");
+const jwt = require("jsonwebtoken");
 
 
 //  /api/hippos
 
 // Post
 router.post("/", verifyToken, (req, res) => {
-    data = req.body;
+    const userId = req.user.id;
+
+    const data = req.body;
+    data.createdBy = userId;
 
     hippo.insertMany(data).then(data => {
         res.send(data);
     }).catch(error => {
-        res.status(500).send({message: error.message});
+        res.status(500).send({ message: error.message });
     });
 });
 
@@ -47,8 +51,10 @@ router.get("/:id", (req, res) => {
 router.put("/:id", verifyToken, (req, res) => {
 
     const id = req.params.id;
+    const updatedHippo = req.body;
+    updatedHippo.lastUpdatedBy = req.user.id;
 
-    hippo.findByIdAndUpdate(id, req.body).then(data => {
+    hippo.findByIdAndUpdate(id, updatedHippo).then(data => {
         if (!data) {
             res.status(404).send({ message: "Cannot update hippo by id= " + id + ". Maybe hippo was not found"})
         } else {

@@ -47,12 +47,12 @@ router.post("/login", async (req, res) => {
 
     const user = await User.findOne({ name: req.body.name});
     if (!user) { 
-        return res.status(400).json({ error: "Username and password does not match 4"});
+        return res.status(400).json({ error: "Username and password does not match"});
     }
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) { 
-        return res.status(400).json({ error: "Username and password does not match 5"});
+        return res.status(400).json({ error: "Username and password does not match"});
     }
 
     const token = jwt.sign(
@@ -68,8 +68,6 @@ router.post("/login", async (req, res) => {
         error: null,
         data: { token }
     })
-
-    // return res.status(200).json({msg: "Regiuster route ..."});
 })
 
 module.exports = router;

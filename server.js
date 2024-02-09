@@ -6,6 +6,8 @@ const app = express();
 const swaggerUi = require("swagger-ui-express");
 const yaml = require("yamljs");
 
+const cors = require('cors');
+
 const swaggerDefinition = yaml.load("./swagger.yaml");
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
@@ -17,7 +19,9 @@ require("dotenv-flow").config();
 
 app.use(bodyParser.json());
 
-
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
 
 
 mongoose.connect(
