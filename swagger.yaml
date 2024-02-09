@@ -6,8 +6,6 @@ info:
 servers:
   - url: http://localhost:4000/api/
     description: Localhost development server
-  - url: https://smsj-men-restapi.herokuapp.com/api/
-    description: Heroku remote server
 components:
   securitySchemes:
     ApiKeyAuth: # arbitrary name for the security scheme
@@ -60,7 +58,7 @@ paths:
 
       responses:
         201:
-          description: User created succesfully
+          description: User created successfully
           content:
             application/json:
               schema:
@@ -89,7 +87,7 @@ paths:
 
       responses:
         200:
-          description: User logged in succesfully
+          description: User logged in successfully
           content:
             application/json:
               schema:
@@ -128,7 +126,7 @@ paths:
 
       responses:
         201:
-          description: Hippo created succesfully
+          description: Hippo created successfully
           content:
             application/json:
               schema:
@@ -176,7 +174,7 @@ paths:
 
       responses:
         201:
-          description: Hippo updated succesfully
+          description: Hippo updated successfully
           content:
             application/json:
               schema:
@@ -197,7 +195,7 @@ paths:
 
       responses:
         201:
-          description: Hippo deleted succesfully
+          description: Hippo deleted successfully
           content:
             application/json:
               schema:
