@@ -20,6 +20,29 @@ router.post("/", verifyToken, (req, res) => {
     });
 });
 
+router.post("/fetch-sorted", (req, res) => {
+    const { sortField, sortOrder, page, limit } = req.body;
+
+    const skipIndex = (page - 1) * limit;
+
+    let sortDirection = sortOrder.toLowerCase() === 'desc' ? -1 : 1;
+
+    const sort = {};
+    if (sortField) {
+        sort[sortField] = sortDirection;
+    }
+
+    hippo.find()
+        .sort(sort)
+        .limit(limit)
+        .skip(skipIndex)
+        .then(data => {
+            res.send(data);
+        }).catch(error => {
+            res.status(500).send({message: error.message});
+        })
+});
+
 // get all
 router.get("/", (req, res) => {
     hippo.find().then(data => {
